@@ -13,7 +13,7 @@ import io.javaoperatorsdk.operator.api.reconciler.*;
 import io.javaoperatorsdk.operator.processing.event.source.filter.OnAddFilter;
 import io.javaoperatorsdk.operator.processing.event.source.filter.OnUpdateFilter;
 
-@ControllerConfiguration(name = "microfrontend", namespaces = WATCH_CURRENT_NAMESPACE, onAddFilter = MicroserviceController.MicrofrontendAddFilter.class, onUpdateFilter = MicroserviceController.MicrofrontendUpdateFilter.class)
+@ControllerConfiguration(name = "microservice", namespaces = WATCH_CURRENT_NAMESPACE, onAddFilter = MicroserviceController.MicrofrontendAddFilter.class, onUpdateFilter = MicroserviceController.MicrofrontendUpdateFilter.class)
 public class MicroserviceController implements Reconciler<Microservice>, ErrorStatusHandler<Microservice> {
 
     private static final Logger log = LoggerFactory.getLogger(MicroserviceController.class);
