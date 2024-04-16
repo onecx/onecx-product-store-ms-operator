@@ -24,6 +24,17 @@ public class MicroserviceSpec {
     @JsonProperty("type")
     private String type;
 
+    @JsonProperty(value = "undeployed", defaultValue = "false")
+    private boolean undeployed = false;
+
+    public void setUndeployed(boolean undeployed) {
+        this.undeployed = undeployed;
+    }
+
+    public boolean isUndeployed() {
+        return undeployed;
+    }
+
     public String getAppId() {
         return appId;
     }
