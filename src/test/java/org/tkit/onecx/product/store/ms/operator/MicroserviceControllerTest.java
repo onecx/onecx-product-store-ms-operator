@@ -25,7 +25,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 class MicroserviceControllerTest extends AbstractTest {
 
-    final static Logger log = LoggerFactory.getLogger(MicroserviceControllerTest.class);
+    static final Logger log = LoggerFactory.getLogger(MicroserviceControllerTest.class);
 
     @Inject
     Operator operator;
@@ -64,16 +64,16 @@ class MicroserviceControllerTest extends AbstractTest {
 
     private static Stream<Arguments> provideTestData() {
         return Stream.of(
-                Arguments.of("test-1", createSpec("test-1", "product-test", "/test1"), MicroserviceStatus.Status.CREATED),
-                Arguments.of("test-2", createSpec("test-2", "product-test-2", "/test2"), MicroserviceStatus.Status.CREATED),
-                Arguments.of("test-3", createSpec("test-3", "product-test-2", "/test3"), MicroserviceStatus.Status.UPDATED),
-                Arguments.of("test-error-1", createSpec("test-error-1", "product-test-2", "/test2"),
+                Arguments.of("test-1", createSpec("test-1", "product-test"), MicroserviceStatus.Status.CREATED),
+                Arguments.of("test-2", createSpec("test-2", "product-test-2"), MicroserviceStatus.Status.CREATED),
+                Arguments.of("test-3", createSpec("test-3", "product-test-2"), MicroserviceStatus.Status.UPDATED),
+                Arguments.of("test-error-1", createSpec("test-error-1", "product-test-2"),
                         MicroserviceStatus.Status.ERROR),
-                Arguments.of("test-error-2", createSpec("test-error-2", "product-test-2", "/test2"),
+                Arguments.of("test-error-2", createSpec("test-error-2", "product-test-2"),
                         MicroserviceStatus.Status.ERROR));
     }
 
-    private static MicroserviceSpec createSpec(String appId, String productName, String basePath) {
+    private static MicroserviceSpec createSpec(String appId, String productName) {
         MicroserviceSpec spec = new MicroserviceSpec();
         spec.setAppId(appId);
         spec.setProductName(productName);
@@ -93,10 +93,7 @@ class MicroserviceControllerTest extends AbstractTest {
         microservice.setMetadata(new ObjectMetaBuilder().withName("empty-spec").withNamespace(client.getNamespace()).build());
         microservice.setSpec(new MicroserviceSpec());
 
-        log.info("Creating test microservice object: {}", microservice);
         client.resource(microservice).serverSideApply();
-
-        log.info("Waiting 4 seconds and status muss be still null");
 
         await().pollDelay(2, SECONDS).untilAsserted(() -> {
             MicroserviceStatus mfeStatus = client.resource(microservice).get().getStatus();
@@ -114,10 +111,7 @@ class MicroserviceControllerTest extends AbstractTest {
         microservice.setMetadata(new ObjectMetaBuilder().withName("null-spec").withNamespace(client.getNamespace()).build());
         microservice.setSpec(null);
 
-        log.info("Creating test microservice object: {}", microservice);
         client.resource(microservice).serverSideApply();
-
-        log.info("Waiting 4 seconds and status muss be still null");
 
         await().pollDelay(4, SECONDS).untilAsserted(() -> {
             MicroserviceStatus mfeStatus = client.resource(microservice).get().getStatus();
@@ -140,10 +134,7 @@ class MicroserviceControllerTest extends AbstractTest {
                 .setMetadata(new ObjectMetaBuilder().withName("to-update-spec").withNamespace(client.getNamespace()).build());
         microservice.setSpec(m);
 
-        log.info("Creating test microservice object: {}", microservice);
         client.resource(microservice).serverSideApply();
-
-        log.info("Waiting 4 seconds and status muss be still null");
 
         await().pollDelay(2, SECONDS).untilAsserted(() -> {
             MicroserviceStatus mfeStatus = client.resource(microservice).get().getStatus();
