@@ -29,7 +29,7 @@ public interface MicroserviceConfig {
          * Lease name
          */
         @WithName("lease-name")
-        @WithDefault("onecx-permission-operator-lease")
+        @WithDefault("onecx-product-store-ms-operator-lease")
         String leaseName();
     }
 }
