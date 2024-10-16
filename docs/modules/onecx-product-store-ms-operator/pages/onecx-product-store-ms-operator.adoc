@@ -23,7 +23,7 @@ Environment variable: `+++ONECX_PRODUCT_STORE_OPERATOR_MS_LEADER_ELECTION_LEASE_
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`onecx-permission-operator-lease`
+|`onecx-product-store-ms-operator-lease`
 
 |===
 
